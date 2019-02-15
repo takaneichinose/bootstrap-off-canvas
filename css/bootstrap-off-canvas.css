@@ -27,6 +27,7 @@ html, body, .off-canvas-wrapper {
   max-height: 100%;
   padding: 20px;
   flex-grow: 0;
+  flex-shrink: 0;
   overflow-y: auto;
   box-sizing: border-box;
   box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.3) inset;

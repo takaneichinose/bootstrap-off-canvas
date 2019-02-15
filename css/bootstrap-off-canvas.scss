@@ -30,6 +30,7 @@ html, body, .off-canvas-wrapper  {
 			max-height: 100%;
 			padding: $off-canvas-padding-size;
 			flex-grow: 0;
+			flex-shrink: 0;
 			overflow-y: auto;
 			box-sizing: border-box;
 			box-shadow: $off-canvas-box-shadow;
