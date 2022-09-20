@@ -28,5 +28,23 @@ Then wrap your usual Bootstrap code in these lines of HTML codes.
 </div>
 ```
 # Options
+
 In ```off-canvas-nav``` class, you may use the Bootstrap's utility [Colors](https://getbootstrap.com/docs/4.3/utilities/colors/).\
+
 In ```off-canvas-content``` class, you may add ```overlay``` to add overlay mask on the content part of your source code.
+
+Example:
+```HTML
+<div class="off-canvas-content overlay" data-target="#offcanvasid">
+  ...
+</div>
+```
+
+In ```off-canvas-content``` class, you may add ```off-canvas-no-click``` to disable close event if the content is clicked when opened.
+
+Example:
+```HTML
+<div class="off-canvas-content off-canvas-no-click" data-target="#offcanvasid">
+  ...
+</div>
+```
