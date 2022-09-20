@@ -25,10 +25,9 @@ $(function() {
     }
   })
 
-  $('.off-canvas-content').on('click', function(evt) {
+  $('.off-canvas-content:not(.off-canvas-no-close)').on('click', function(evt) {
     var elm = $(this).data('target')
 
-    // This is just a workaround, because I could not make '.off-canvas-content.active' selector work.
     if ($(elm).hasClass('active')) {
       evt.stopPropagation()
 
