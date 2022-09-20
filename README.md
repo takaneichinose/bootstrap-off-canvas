@@ -40,11 +40,11 @@ Example:
 </div>
 ```
 
-In ```off-canvas-content``` class, you may add ```off-canvas-no-click``` to disable close event if the content is clicked when opened.
+In ```off-canvas-content``` class, you may add ```off-canvas-no-close``` to disable close event if the content is clicked when opened.
 
 Example:
 ```HTML
-<div class="off-canvas-content off-canvas-no-click" data-target="#offcanvasid">
+<div class="off-canvas-content off-canvas-no-close" data-target="#offcanvasid">
   ...
 </div>
 ```
