@@ -47,4 +47,11 @@ Example:
 <div class="off-canvas-content off-canvas-no-close" data-target="#offcanvasid">
   ...
 </div>
-```
+
+In ```off-canvas``` ckass, you may add ```is-float``` if you want the off-canvas to not push the entire content.
+
+Example:
+```HTML
+<div class="off-canvas is-float" data-target="#offcanvasid">
+  ...
+</div>
