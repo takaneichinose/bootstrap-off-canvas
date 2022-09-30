@@ -20,8 +20,29 @@ html, body, .off-canvas-wrapper {
   box-sizing: border-box;
   transition: margin-left 300ms ease-in-out;
 }
+.off-canvas-wrapper .off-canvas.is-float {
+  margin-left: 0;
+}
+.off-canvas-wrapper .off-canvas.is-float .off-canvas-nav {
+  order: 1;
+  position: absolute;
+  top: 0;
+  left: calc(var(--off-canvas-width) * -1);
+  box-shadow: 10px 0 10px -5px rgba(0, 0, 0, 0.3);
+  transition: left 300ms ease-in-out;
+}
+.off-canvas-wrapper .off-canvas.is-float .off-canvas-content {
+  order: 0;
+}
 .off-canvas-wrapper .off-canvas.active {
   margin-left: 0;
+}
+.off-canvas-wrapper .off-canvas.active.is-float .off-canvas-nav {
+  left: 0;
+  z-index: 1;
+}
+.off-canvas-wrapper .off-canvas.active.is-float .off-canvas-content::after {
+  display: none;
 }
 .off-canvas-wrapper .off-canvas .off-canvas-nav {
   width: var(--off-canvas-width);
@@ -35,7 +56,6 @@ html, body, .off-canvas-wrapper {
   box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.3) inset;
 }
 .off-canvas-wrapper .off-canvas .off-canvas-content {
-  position: relative;
   overflow: auto;
   flex-grow: 1;
 }
@@ -61,6 +81,9 @@ html, body, .off-canvas-wrapper {
   background-color: transparent;
   width: 100%;
   height: 100%;
+}
+.off-canvas-wrapper .off-canvas:not(.is-float) .off-canvas-content {
+  position: relative;
 }
 
 /*# sourceMappingURL=bootstrap-off-canvas.css.map */
