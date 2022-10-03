@@ -10,56 +10,42 @@ html, body, .off-canvas-wrapper  {
   height: 100%;
 }
 
+@mixin off-canvas($is-floating) {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  .off-canvas-nav {
+    width: var(--off-canvas-width);
+    height: 100%;
+    min-height: 100%;
+    padding: $off-canvas-padding-size;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+    @if $is-floating {
+      box-shadow: $off-canvas-box-shadow-float;
+    } @else {
+      box-shadow: $off-canvas-box-shadow;
+    }
+  }
+}
+
 .off-canvas-wrapper {
   overflow-x: hidden;
   .off-canvas {
+    @include off-canvas(false);
     width: calc(100% + var(--off-canvas-width));
-    height: 100%;
-    min-height: 100%;
     margin-left: calc(var(--off-canvas-width) * -1);
-    display: flex;
-    align-items: stretch;
-    box-sizing: border-box;
     transition: margin-left $off-canvas-transition-time $off-canvas-transition-style;
-    &.is-float {
-      margin-left: 0;
-      .off-canvas-nav {
-        order: 1;
-        position: absolute;
-        top: 0;
-        left: calc(var(--off-canvas-width) * -1);
-        box-shadow: $off-canvas-box-shadow-float;
-        transition: left $off-canvas-transition-time $off-canvas-transition-style;
-      }
-      .off-canvas-content {
-        order: 0;
-      }
-    }
     &.active {
       margin-left: 0;
-      &.is-float {
-        .off-canvas-nav {
-          left: 0;
-          z-index: 1;
-        }
-        .off-canvas-content::after {
-          display: none;
-        }
-      }
-    }
-    .off-canvas-nav {
-      width: var(--off-canvas-width);
-      height: 100%;
-      min-height: 100%;
-      padding: $off-canvas-padding-size;
-      flex-grow: 0;
-      flex-shrink: 0;
-      overflow-y: auto;
-      box-sizing: border-box;
-      box-shadow: $off-canvas-box-shadow;
     }
     .off-canvas-content {
       overflow: auto;
+      position: relative;
       flex-grow: 1;
       &:not(.off-canvas-no-close).overlay::after {
         background-color: rgba($off-canvas-overlay-color, 0);
@@ -85,10 +71,19 @@ html, body, .off-canvas-wrapper  {
         height: 100%;
       }
     }
-    &:not(.is-float) {
-      .off-canvas-content {
-        position: relative;
-      }
-    }
+  }
+}
+
+.off-canvas-floating {
+  @include off-canvas(true);
+  width: var(--off-canvas-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: calc(var(--off-canvas-width) * -1);
+  transition: left $off-canvas-transition-time $off-canvas-transition-style;
+  z-index: 1;
+  &.active {
+    left: 0;
   }
 }
