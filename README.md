@@ -47,11 +47,26 @@ Example:
 <div class="off-canvas-content off-canvas-no-close" data-target="#offcanvasid">
   ...
 </div>
+```
 
-In ```off-canvas``` ckass, you may add ```is-float``` if you want the off-canvas to not push the entire content.
+If you want your off-canvas menu to be floating over the content, you should make your HTML structure the way below:
 
 Example:
 ```HTML
-<div class="off-canvas is-float" data-target="#offcanvasid">
+<div id="off_canvas" class="off-canvas off-canvas-floating">
+  <!-- Just use the default Bootstrap color utility here -->
+  <div class="off-canvas-nav bg-dark">
+    <!-- You may use any of the bootstrap components here -->
+    <div class="nav nav-pills nav-fill flex-column">
+      <a href="#" class="text-left nav-item nav-link active">Link 1</a>
+        <a href="#" class="text-left nav-item nav-link">Link 2</a>
+        <a href="#" class="text-left nav-item nav-link disabled">Disabled Link</a>
+    </div>
+  </div>
+</div>
+<!-- Your usual Bootstrap code goes here -->
+<a href="#" class="off-canvas-toggler" type="button" data-target="#offcanvasid" aria-controls="offcanvasSupportedContent" aria-expanded="false" aria-label="Toggle off canvas menu">Toggle off canvas</a>
+<div class="container">
   ...
 </div>
+```
