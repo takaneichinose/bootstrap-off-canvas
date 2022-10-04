@@ -1,5 +1,5 @@
-@import 'variables/colors.scss';
-@import 'variables/sizes.scss';
+@import "variables/colors.scss";
+@import "variables/sizes.scss";
 
 :root {
   --off-canvas-width: #{$off-canvas-width};
@@ -11,6 +11,18 @@ html, body, .off-canvas-wrapper  {
 }
 
 @mixin off-canvas($is-floating) {
+  $box-shadow: $off-canvas-box-shadow;
+  $content-selector: ".off-canvas-content";
+  $pseudo-class: "::after";
+  $active-width: 100%;
+  $content-position: absolute;
+  @if $is-floating {
+    $box-shadow: $off-canvas-box-shadow-floating;
+    $content-selector: "+ .off-canvas-content";
+    $pseudo-class: "";
+    $active-width: 100vw;
+    $content-position: fixed;
+  }
   height: 100%;
   min-height: 100%;
   display: flex;
@@ -25,11 +37,33 @@ html, body, .off-canvas-wrapper  {
     flex-shrink: 0;
     overflow-y: auto;
     box-sizing: border-box;
-    @if $is-floating {
-      box-shadow: $off-canvas-box-shadow-float;
-    } @else {
-      box-shadow: $off-canvas-box-shadow;
-    }
+    box-shadow: $box-shadow;
+  }
+  & #{$content-selector}:not(.off-canvas-no-close).overlay#{$pseudo-class} {
+    background-color: rgba($off-canvas-overlay-color, 0);
+    transition:
+      background-color $off-canvas-transition-time $off-canvas-transition-style,
+      width 0s $off-canvas-transition-time,
+      height 0s $off-canvas-transition-time;
+  }
+  &.active #{$content-selector}:not(.off-canvas-no-close).overlay#{$pseudo-class} {
+    background-color: rgba($off-canvas-overlay-color, $off-canvas-overlay-opacity);
+    transition: background-color $off-canvas-transition-time $off-canvas-transition-style;
+  }
+  & #{$content-selector}:not(.off-canvas-no-close)#{$pseudo-class} {
+    content: "";
+    width: 0px;
+    height: 0px;
+    display: block;
+    position: $content-position;
+    top: 0px;
+    left: 0px;
+    z-index: 10000;
+  }
+  &.active #{$content-selector}:not(.off-canvas-no-close)#{$pseudo-class} {
+    background-color: transparent;
+    width: $active-width;
+    height: 100%;
   }
 }
 
@@ -41,35 +75,12 @@ html, body, .off-canvas-wrapper  {
     margin-left: calc(var(--off-canvas-width) * -1);
     transition: margin-left $off-canvas-transition-time $off-canvas-transition-style;
     &.active {
-      margin-left: 0;
+      margin-left: 0px;
     }
-    .off-canvas-content {
+    &:not(.off-canvas-floating) .off-canvas-content {
       overflow: auto;
       position: relative;
       flex-grow: 1;
-      &:not(.off-canvas-no-close).overlay::after {
-        background-color: rgba($off-canvas-overlay-color, 0);
-        transition: background-color $off-canvas-transition-time $off-canvas-transition-style, width 0s $off-canvas-transition-time, height 0s $off-canvas-transition-time;
-      }
-      &:not(.off-canvas-no-close).overlay.active::after {
-        background-color: rgba($off-canvas-overlay-color, $off-canvas-overlay-opacity);
-        transition: background-color $off-canvas-transition-time $off-canvas-transition-style;
-      }
-      &:not(.off-canvas-no-close)::after {
-        content: '';
-        width: 0;
-        height: 0;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 10000;
-      }
-      &.active:not(.off-canvas-no-close)::after {
-        background-color: transparent;
-        width: 100%;
-        height: 100%;
-      }
     }
   }
 }
@@ -79,11 +90,15 @@ html, body, .off-canvas-wrapper  {
   width: var(--off-canvas-width);
   height: 100vh;
   position: fixed;
-  top: 0;
+  top: 0px;
   left: calc(var(--off-canvas-width) * -1);
   transition: left $off-canvas-transition-time $off-canvas-transition-style;
-  z-index: 1;
+  z-index: 10001;
   &.active {
-    left: 0;
+    left: 0px;
+  }
+  & + .off-canvas-content {
+    position: fixed;
+    top: 0px;
   }
 }

@@ -31,36 +31,36 @@ html, body, .off-canvas-wrapper {
   box-sizing: border-box;
   box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.3) inset;
 }
-.off-canvas-wrapper .off-canvas.active {
-  margin-left: 0;
-}
-.off-canvas-wrapper .off-canvas .off-canvas-content {
-  overflow: auto;
-  position: relative;
-  flex-grow: 1;
-}
 .off-canvas-wrapper .off-canvas .off-canvas-content:not(.off-canvas-no-close).overlay::after {
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 300ms ease-in-out, width 0s 300ms, height 0s 300ms;
 }
-.off-canvas-wrapper .off-canvas .off-canvas-content:not(.off-canvas-no-close).overlay.active::after {
+.off-canvas-wrapper .off-canvas.active .off-canvas-content:not(.off-canvas-no-close).overlay::after {
   background-color: rgba(0, 0, 0, 0.5);
   transition: background-color 300ms ease-in-out;
 }
 .off-canvas-wrapper .off-canvas .off-canvas-content:not(.off-canvas-no-close)::after {
   content: "";
-  width: 0;
-  height: 0;
+  width: 0px;
+  height: 0px;
   display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
   z-index: 10000;
 }
-.off-canvas-wrapper .off-canvas .off-canvas-content.active:not(.off-canvas-no-close)::after {
+.off-canvas-wrapper .off-canvas.active .off-canvas-content:not(.off-canvas-no-close)::after {
   background-color: transparent;
   width: 100%;
   height: 100%;
+}
+.off-canvas-wrapper .off-canvas.active {
+  margin-left: 0px;
+}
+.off-canvas-wrapper .off-canvas:not(.off-canvas-floating) .off-canvas-content {
+  overflow: auto;
+  position: relative;
+  flex-grow: 1;
 }
 
 .off-canvas-floating {
@@ -72,10 +72,10 @@ html, body, .off-canvas-wrapper {
   width: var(--off-canvas-width);
   height: 100vh;
   position: fixed;
-  top: 0;
+  top: 0px;
   left: calc(var(--off-canvas-width) * -1);
   transition: left 300ms ease-in-out;
-  z-index: 1;
+  z-index: 10001;
 }
 .off-canvas-floating .off-canvas-nav {
   width: var(--off-canvas-width);
@@ -88,8 +88,35 @@ html, body, .off-canvas-wrapper {
   box-sizing: border-box;
   box-shadow: 10px 0 10px -5px rgba(0, 0, 0, 0.3);
 }
+.off-canvas-floating + .off-canvas-content:not(.off-canvas-no-close).overlay {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 300ms ease-in-out, width 0s 300ms, height 0s 300ms;
+}
+.off-canvas-floating.active + .off-canvas-content:not(.off-canvas-no-close).overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: background-color 300ms ease-in-out;
+}
+.off-canvas-floating + .off-canvas-content:not(.off-canvas-no-close) {
+  content: "";
+  width: 0px;
+  height: 0px;
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10000;
+}
+.off-canvas-floating.active + .off-canvas-content:not(.off-canvas-no-close) {
+  background-color: transparent;
+  width: 100vw;
+  height: 100%;
+}
 .off-canvas-floating.active {
-  left: 0;
+  left: 0px;
+}
+.off-canvas-floating + .off-canvas-content {
+  position: fixed;
+  top: 0px;
 }
 
 /*# sourceMappingURL=bootstrap-off-canvas.css.map */
